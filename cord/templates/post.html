@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block status_block %}
+    <div id="status">
+        {% if post_status %}
+            {% include 'partials/reply_alert.html' %}
+        {% endif %}
+    </div>
+{% endblock %}
+{% block content %}
+    <div id="opinion" class="flex justify-center">
+        <div class="w-auto md:w-1/2">
+        {% if post.sup_post %}
+            <div class="flex px-2 py-2 gap-x-2 hover:bg-gray-100">
+                <a href="{% url 'get_user_profile' post.sup_post.user.username %}" class="shrink-0 mx-2">
+                    <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="placeholder">
+                </a>
+                <div class="text-sm lg:text-lg text-slate-800 mx-2">
+                    <span class="font-medium">
+                        <a href="{% url 'get_user_profile' post.sup_post.user.username %}">
+                            {{post.sup_post.user.username}}
+                        </a>
+                    </span>
+                    <a href="/{{post.sup_post.id}}/post/" class="m-2 text-slate-700">
+                        <p>{{post.sup_post.opinion}}</p>
+                    </a>
+                    <section class="flex gap-x-4 items-center">
+                        {% include 'partials/sup_post_like_area.html' %}
+                    </section>
+                </div>
+                
+            </div>
+            <form
+                hx-post="{% url 'share_opinion' %}"
+                hx-trigger="click from:#comment-{{post.sup_post.pk}}"
+                hx-swap="outerHTML"
+                hx-target="#status"
+            >
+                <textarea name="opinion" cols="30" rows="10"></textarea>
+                <input hidden name="sup_post" value="{{post.sup_post.pk}}"/>
+                <input hidden name="sup_post_form" value="true"/>
+            </form>
+            <button id="comment-{{post.sup_post.pk}}">post</button>
+        
+        {% endif %}
+        <div class="flex px-2 py-2 gap-x-2 hover:bg-gray-100 shadow-sm m-2">
+            <a class="shrink-0" href="{% url 'get_user_profile' post.user.username %}">
+                <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="placeholder">
+            </a>
+            <div>
+                <span>
+                    <a href="{% url 'get_user_profile' post.user.username %}">
+                        {{post.user.username}}
+                    </a>
+                </span>
+                <a href="/{{post.id}}/post/" class="m-1 text-slate-700">
+                    <p>{{post.opinion}}</p>
+                </a>
+                {% include 'partials/like_area.html' %}
+                
+            </div>
+        </div>
+        {% include 'form/mainpostform.html' %}
+        {% block sub_posts_block %}
+            
+            <div id="sub_posts">
+                {% if post_status %}
+                    <div 
+                        x-data="{
+                            show_post_status: false,
+                            message: 'reply successful'
+                        }" 
+                        id="status"
+                        x-init="
+                            show_post_status = true,
+                            setTimeout(()=>{
+                                show_post_status = false;
+                            }, 5000)
+                        "
+                    >
+                        <span x-show="show_post_status" x-text="message" x-transition></span>
+                    </div>
+                {% endif %}
+                {% for sub_post in post.get_sub_post %}
+                    <div class="flex px-2 py-2 gap-x-2 hover:bg-gray-100">
+                        <a class="shrink-0" href="{% url 'get_user_profile' sub_post.user.username %}">
+                            <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="placeholder">
+                        </a>
+                        <div class="text-sm lg:text-lg text-slate-800">
+                            <span class="font-medium">
+                                <a href="{% url 'get_user_profile' sub_post.user.username %}">
+                                    {{sub_post.user.username}}
+                                </a>
+                            </span>
+                            <a href="/{{sub_post.id}}/post/" class="m-1 text-slate-700">
+                                <p>{{sub_post.opinion}}</p>
+                            </a>
+                            <section class="flex gap-x-4 items-center">
+                                {% include 'partials/sub_post_like_area.html' %}
+                                <span @click="showCommentModal = true" class="flex justify-center text-sm items-center gap-x-1">
+                                    {% if sub_post.get_comment_count %}
+                                        {{sub_post.get_comment_count}}
+                                    {% endif %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                                    </svg>
+                                </span>
+                            </section>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+        </div>
+    {% endblock %}
+
+{% endblock %}

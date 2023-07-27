@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <h1>{{target_user}} profile</h1>
+        {% if request.user != target_user %}
+            {% include 'partials/follow_area.html' %}
+        {% endif %}
+    </div>
+{% endblock %}

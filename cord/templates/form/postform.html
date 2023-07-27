@@ -1,0 +1,20 @@
+<div x-data>
+    <form 
+        hx-post="{% url 'share_opinion' %}"
+        hx-trigger="click from:#submit"
+        hx-swap="outerHTML"
+        hx-target="#opinion"
+    >
+            <textarea 
+                name="opinion"
+                cols="30"
+                rows="10"
+                placeholder="share your thoughts"
+            >
+            </textarea>
+            <input hidden name="sub_post"/>
+            <input hidden name="sup_post_form"/>
+            <input hidden name="main_post_form"/>
+    </form>
+    <button id="submit">post</button>
+</div>

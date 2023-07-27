@@ -1,0 +1,16 @@
+<section x-data id="follow">
+    <h1>{{target_user.username}}</h1>
+        <button
+            hx-post="{% url 'toggle_follow' target_user.username %}"
+            hx-trigger="click"
+            id="follow"
+            hx-swap="outerHTML"
+            hx-target="#follow"
+        >
+            {% if request.user in target_user.following.all %}
+                unfollow
+            {% else %}
+                follow
+            {% endif %}
+        </button>
+</section>

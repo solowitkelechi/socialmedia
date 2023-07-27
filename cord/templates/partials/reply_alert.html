@@ -1,0 +1,19 @@
+<div 
+    x-data="{
+        show_reply_status:false,
+        message:'reply successful'
+    }" 
+    x-init="
+        show_reply_status=true;
+        setTimeout(()=>{
+            show_reply_status=false;
+        }, 3000)
+    ">
+    <span 
+        x-show="show_reply_status"
+        x-text="message"
+        style="background-color: green; color: whitesmoke;"
+    >
+        reply successful
+    </span>
+</div>

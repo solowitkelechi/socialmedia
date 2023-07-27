@@ -1,0 +1,13 @@
+<form
+    hx-post="{% url 'share_opinion' %}"
+    hx-trigger="click from:#comment-{{post.pk}}"
+    hx-target="#status-{{post.pk}}"
+    hx-swap="outerHTML"
+>
+    <textarea name="opinion" id="" cols="30" rows="10"></textarea>
+    <input hidden name="sup_post" value="{{post.pk}}"/>
+    <input hidden name="sup_post_form"/>
+    <input hidden name="main_post_form"/>
+    <input hidden name="from_index" value="true"/>
+</form>
+<button id="comment-{{post.pk}}">post</button>
