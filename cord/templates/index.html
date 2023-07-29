@@ -10,9 +10,9 @@
         hx-indicator="#loading"
         hx-target="#opinion"
     >
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center p-2 items-center">
             <span
-                style="background-color: red;color: whitesmoke"
+                class="bg-emerald-500"
                 id="loading"
                 class="htmx-indicator"
             >
@@ -22,7 +22,7 @@
         
         {% block opinions %}
             <div id="opinion" class="flex justify-center">
-                <div class="w-auto md:w-1/2">
+                <div class="md:w-1/2">
                 {% for post in posts %}
                     <div x-data="{showCommentModal:false}" class="flex px-2 py-2 gap-x-2 hover:bg-gray-100 shadow-sm">
                         <a class="shrink-0" href="{% url 'get_user_profile' post.user.username %}">
