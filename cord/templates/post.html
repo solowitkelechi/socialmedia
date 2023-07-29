@@ -9,7 +9,7 @@
 {% endblock %}
 {% block content %}
     <div id="opinion" class="flex justify-center">
-        <div class="w-auto md:w-1/2">
+        <div class="lg:w-1/2">
         {% if post.sup_post %}
             <div class="flex px-2 py-2 gap-x-2 hover:bg-gray-100">
                 <a href="{% url 'get_user_profile' post.sup_post.user.username %}" class="shrink-0 mx-2">

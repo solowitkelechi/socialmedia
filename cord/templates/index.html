@@ -22,7 +22,7 @@
         
         {% block opinions %}
             <div id="opinion" class="flex justify-center">
-                <div class="md:w-1/2">
+                <div class="lg:w-1/2">
                 {% for post in posts %}
                     <div x-data="{showCommentModal:false}" class="flex px-2 py-2 gap-x-2 hover:bg-gray-100 shadow-sm">
                         <a class="shrink-0" href="{% url 'get_user_profile' post.user.username %}">
