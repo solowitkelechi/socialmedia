@@ -27,7 +27,7 @@
                 </a>
                 <section class="flex items-center px-2 gap-x-4">
                     {% include 'partials/sub_post_like_area.html' %}
-                    <span @click="showCommentModal = true" class="flex justify-center items-center">
+                    <span class="flex justify-center items-center">
                         {% if sub_post.get_comment_count %}
                             {{sub_post.get_comment_count}}
                         {% endif %}

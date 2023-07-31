@@ -1,13 +1,13 @@
 <div class="flex justify-center">
     <div x-data class="w-full md:w-9/12 lg:w-1/2 flex gap-x-2 px-2 py-2 ">
         <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="profile image">
-        <div class="grow flex flex-col gap-y-2 border-solid border-2 rounded border-indigo-300 p-2">
+        <div class="grow flex flex-col gap-y-2 border-solid border-2 rounded border-sky-200 p-2">
             <form
                 hx-post="{% url 'share_opinion' %}"
                 hx-trigger="click from:#submit"
                 hx-swap="outerHTML"
                 hx-target="#opinion"
-                class="flex focus:border-none"
+                class="flex"
             >
                     <textarea
                         class="grow focus:outline-none"

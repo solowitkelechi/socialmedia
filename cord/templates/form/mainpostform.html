@@ -1,13 +1,23 @@
-<form
-    hx-post="{% url 'share_opinion' %}"
-    hx-trigger="click from:#comment-{{post.pk}}"
-    hx-target="#sub_posts"
-    hx-swap="outerHTML"
-    class="flex p-2"
->
-    <textarea class="grow" name="opinion" id=""></textarea>
-    <input hidden name="sup_post" value="{{post.pk}}"/>
-    <input hidden name="sup_post_form"/>
-    <input hidden name="main_post_form" value="true"/>
-</form>
-<button class="p-2" id="comment-{{post.pk}}">reply</button>
+<div class="grow mx-2 my-1 flex flex-col gap-y-2 border-solid border-2 rounded border-indigo-300 p-2">
+    <form
+        hx-post="{% url 'share_opinion' %}"
+        hx-trigger="click from:#comment-{{post.pk}}"
+        hx-target="#sub_posts"
+        hx-swap="outerHTML"
+        class="flex p-2"
+    >
+        <textarea class="grow focus:outline-none" name="opinion" id=""></textarea>
+        <input hidden name="sup_post" value="{{post.pk}}"/>
+        <input hidden name="sup_post_form"/>
+        <input hidden name="main_post_form" value="true"/>
+    </form>
+    <span class="flex justify-end">
+        <button
+            id="comment-{{post.pk}}"
+            class="px-2 py-1 font-medium text-md bg-sky-500 hover:bg-sky-600 focus:outline-none active:bg-sky-700 rounded text-slate-100"
+        >
+            reply
+        </button>
+    </span>
+</div>
+

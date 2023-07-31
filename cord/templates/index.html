@@ -28,7 +28,7 @@
                         <a class="shrink-0" href="{% url 'get_user_profile' post.user.username %}">
                             <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="placeholder">
                         </a>
-                        <div class="text-sm lg:text-lg text-slate-800">
+                        <div class="w-full text-sm lg:text-lg text-slate-800">
                             <span class="font-medium">
                                 <a href="{% url 'get_user_profile' post.user.username %}">
                                     {{post.user.username}}
@@ -49,12 +49,12 @@
                                     </svg>
                                   </span>
                             </section>
-                            <section x-show="showCommentModal" x-transition>
+                            <section class="flex flex-col gap-y-2" x-show="showCommentModal" x-transition>
                                 <span><button @click="showCommentModal=false">cancel</button></span>
                                 {% include 'form/commentform.html' %}
                             </section>
                             <template x-teleport="body">
-                                <section id="status-{{post.pk}}">
+                                <section id="reply_status">
                                     {% block status_block %}
                                         {% if post_status %}
                                              {% include 'partials/reply_alert.html' %}
@@ -67,7 +67,6 @@
                             </div>
                         </div>
                     </div> 
-                
                 {% endfor %}
                 </div>
             </div>
