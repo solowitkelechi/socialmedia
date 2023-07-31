@@ -3,10 +3,11 @@
     hx-trigger="click from:#comment-{{post.pk}}"
     hx-target="#sub_posts"
     hx-swap="outerHTML"
+    class="flex p-2"
 >
-    <textarea name="opinion" id="" cols="30" rows="10"></textarea>
+    <textarea class="grow" name="opinion" id=""></textarea>
     <input hidden name="sup_post" value="{{post.pk}}"/>
     <input hidden name="sup_post_form"/>
     <input hidden name="main_post_form" value="true"/>
 </form>
-<button id="comment-{{post.pk}}">post</button>
+<button class="p-2" id="comment-{{post.pk}}">reply</button>

@@ -1,20 +1,32 @@
-<div x-data>
-    <form 
-        hx-post="{% url 'share_opinion' %}"
-        hx-trigger="click from:#submit"
-        hx-swap="outerHTML"
-        hx-target="#opinion"
-    >
-            <textarea 
-                name="opinion"
-                cols="30"
-                rows="10"
-                placeholder="share your thoughts"
+<div class="flex justify-center">
+    <div x-data class="w-full md:w-9/12 lg:w-1/2 flex gap-x-2 px-2 py-2 ">
+        <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="profile image">
+        <div class="grow flex flex-col gap-y-2 border-solid border-2 rounded border-indigo-300 p-2">
+            <form
+                hx-post="{% url 'share_opinion' %}"
+                hx-trigger="click from:#submit"
+                hx-swap="outerHTML"
+                hx-target="#opinion"
+                class="flex focus:border-none"
             >
-            </textarea>
-            <input hidden name="sub_post"/>
-            <input hidden name="sup_post_form"/>
-            <input hidden name="main_post_form"/>
-    </form>
-    <button id="submit">post</button>
+                    <textarea
+                        class="grow focus:outline-none"
+                        name="opinion"
+                        placeholder="share your thoughts"
+                    >
+                    </textarea>
+                    <input hidden name="sub_post"/>
+                    <input hidden name="sup_post_form"/>
+                    <input hidden name="main_post_form"/>
+            </form>
+            <span class="flex justify-end">
+                <button 
+                    id="submit" 
+                    class="px-2 py-1 font-medium text-md bg-sky-500 hover:bg-sky-600 focus:outline-none active:bg-sky-700 rounded text-slate-100"
+                >
+                    post
+                </button>
+            </span>
+        </div>
+    </div>
 </div>

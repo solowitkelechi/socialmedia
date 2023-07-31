@@ -22,9 +22,9 @@
         
         {% block opinions %}
             <div id="opinion" class="flex justify-center">
-                <div class="lg:w-1/2">
+                <div class="w-full md:w-9/12 lg:w-1/2 flex flex-col divide-y">
                 {% for post in posts %}
-                    <div x-data="{showCommentModal:false}" class="flex px-2 py-2 gap-x-2 hover:bg-gray-100 shadow-sm">
+                    <div x-data="{showCommentModal:false}" class="flex px-2 py-2 gap-x-2 hover:bg-gray-100">
                         <a class="shrink-0" href="{% url 'get_user_profile' post.user.username %}">
                             <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="placeholder">
                         </a>
