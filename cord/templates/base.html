@@ -12,11 +12,16 @@
     {% block header %}
         <header class="bg-white">
             <nav 
-                class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global"
+                class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 border-solid border-b-2 border-slate-100" aria-label="Global"
             >
                 <div class="flex lg:flex-1 font-bold font-large">
                     <a href="{% url 'index' %}">
-                        <h1>Cord</h1>
+                        <h2>Cord</h2>
+                    </a>
+                </div>
+                <div>
+                    <a class="shrink-0" href="{% url 'get_user_profile' request.user.username %}">
+                        <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="placeholder">
                     </a>
                 </div>
             </nav>

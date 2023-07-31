@@ -1,7 +1,7 @@
 <div class="flex justify-center">
     <div x-data class="w-full md:w-9/12 lg:w-1/2 flex gap-x-2 px-2 py-2 ">
         <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="profile image">
-        <div class="grow flex flex-col gap-y-2 border-solid border-2 rounded border-sky-200 p-2">
+        <div class="grow flex flex-col gap-y-2 border-solid border-b-2 border-slate-100 p-2">
             <form
                 hx-post="{% url 'share_opinion' %}"
                 hx-trigger="click from:#submit"
@@ -9,15 +9,11 @@
                 hx-target="#opinion"
                 class="flex"
             >
-                    <textarea
-                        class="grow focus:outline-none"
-                        name="opinion"
-                        placeholder="share your thoughts"
-                    >
-                    </textarea>
-                    <input hidden name="sub_post"/>
-                    <input hidden name="sup_post_form"/>
-                    <input hidden name="main_post_form"/>
+                <textarea class="grow focus:outline-none" name="opinion" placeholder="Reveal your thoughts.."></textarea>
+                <input hidden name="sub_post"/>
+                <input hidden name="sup_post_form"/>
+                <input hidden name="main_post_form"/>
+                <input hidden name="from_index"/>
             </form>
             <span class="flex justify-end">
                 <button 

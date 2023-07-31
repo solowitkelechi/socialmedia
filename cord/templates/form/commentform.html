@@ -6,7 +6,7 @@
         hx-swap="outerHTML"
         class="flex grow"
     >
-        <textarea name="opinion" class="grow focus:outline-none" id=""></textarea>
+        <textarea name="opinion" class="grow focus:outline-none" id="{{post.pk}}-textarea"></textarea>
         <input hidden name="sup_post" value="{{post.pk}}"/>
         <input hidden name="sup_post_form"/>
         <input hidden name="main_post_form"/>
@@ -14,6 +14,7 @@
     </form>
     <span class="flex justify-end">
         <button
+            @click="showCommentModal=false"
             id="comment-{{post.pk}}"
             class="px-2 py-1 font-medium text-md bg-sky-500 hover:bg-sky-600 focus:outline-none active:bg-sky-700 rounded text-slate-100"
         >

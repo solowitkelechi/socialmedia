@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% include 'form/postform.html' %}
+
     <div
         x-data 
         hx-get="{% url 'load_opinions' %}"
@@ -10,6 +10,8 @@
         hx-indicator="#loading"
         hx-target="#opinion"
     >
+        {% include 'form/postform.html' %}
+
         <div class="flex justify-center p-2 items-center">
             <span
                 class="bg-emerald-500"
@@ -21,10 +23,17 @@
         </div>
         
         {% block opinions %}
-            <div id="opinion" class="flex justify-center">
+            <div id="opinion"  class="flex justify-center">
+                <template x-teleport="body">
+                    <section id="reply_status">
+                        {% if main_post_status %}
+                            {% include 'partials/reply_alert.html' %}
+                        {% endif %}
+                    </section>
+                </template>
                 <div class="w-full md:w-9/12 lg:w-1/2 flex flex-col divide-y">
                 {% for post in posts %}
-                    <div x-data="{showCommentModal:false}" class="flex px-2 py-2 gap-x-2 hover:bg-gray-100">
+                    <div class="flex px-2 py-2 gap-x-2 hover:bg-gray-100" x-data="{showCommentModal:false}">
                         <a class="shrink-0" href="{% url 'get_user_profile' post.user.username %}">
                             <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" class="h-10 rounded-full shrink-0" alt="placeholder">
                         </a>
@@ -43,31 +52,49 @@
                                       {% if post.get_comment_count %}
                                         {{post.get_comment_count}}
                                       {% endif %}
-                                
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                                     </svg>
                                   </span>
                             </section>
-                            <section class="flex flex-col gap-y-2" x-show="showCommentModal" x-transition>
-                                <span><button @click="showCommentModal=false">cancel</button></span>
-                                {% include 'form/commentform.html' %}
-                            </section>
-                            <template x-teleport="body">
-                                <section id="reply_status">
-                                    {% block status_block %}
-                                        {% if post_status %}
-                                             {% include 'partials/reply_alert.html' %}
-                                        {% endif %}
-                                    {% endblock %}
-                                </section>
-                            </template>
+                            <div x-show="showCommentModal" x-transition x-transition:leave.duration.200ms class="fixed flex justify-center items-center left-0 top-0 bottom-0 right-0 z-10 bg-black/50 p-2">
+                                <div @click.outside="showCommentModal=false" class="p-4 w-full md:w-9/12 lg:w-1/2 bg-white flex flex-col gap-y-2 rounded" x-show="showCommentModal" x-transition.duration.200ms>
+                                    <span>
+                                        <button @click="showCommentModal=false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </button>
+                                    </span>
+                                    <div class="flex flex-col gap-y-1 p-2">
+                                        <span class="font-medium">
+                                            <i>replying</i>
+                                            <a href="{% url 'get_user_profile' post.user.username %}">
+                                                u/{{post.user.username}}
+                                            </a>
+                                        </span>
+                                        <a href="/{{post.id}}/post/" class="m-1 text-slate-700">
+                                            <p>{{post.opinion}}</p>
+                                        </a>
+                                    </div>
+                                    {% include 'form/commentform.html' %}
+                                </div>
+                            </div>
                             <div>
                                 {% include 'partials/sub_post.html' %}
                             </div>
                         </div>
                     </div> 
                 {% endfor %}
+                <template x-teleport="body">
+                    <section id="reply_status">
+                        {% block status_block %}
+                            {% if post_status %}
+                                {% include 'partials/reply_alert.html' %}
+                            {% endif %}
+                        {% endblock %}
+                    </section>
+                </template>
                 </div>
             </div>
         {% endblock %}

@@ -131,6 +131,7 @@ def share_opinion(request):
         post.sup_post = sup_post
     post.save()
     posts = Post.objects.all().order_by('-pub_date')
+
     context={
         'posts': posts,
     }
@@ -155,6 +156,7 @@ def share_opinion(request):
         html = render_block_to_string('post.html', 'sub_posts_block', context)
         return HttpResponse(html)
     
+    context.update({'main_post_status': True})
     html = render_block_to_string('index.html', 'opinions', context)
     return HttpResponse(html)
     
