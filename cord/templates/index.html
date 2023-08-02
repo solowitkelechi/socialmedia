@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!-- hx-trigger="load"
+    <button id="load">load data</button>
+    <div
+        hx-trigger="click from:#load"
         hx-get="{% url 'load_opinions' %}"
         hx-swap="outerHTML"
         hx-indicator="#loading"
-        hx-target="#opinion" -->
-    <div 
+        hx-target="#opinion"
         x-data
     >
         <div class="flex justify-center p-2 items-center">

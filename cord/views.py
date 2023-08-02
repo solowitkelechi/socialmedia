@@ -8,14 +8,7 @@ import time
 # Create your views here.
 
 def index(request):
-    posts = Post.objects.filter(sup_post=None).order_by('-pub_date')
-    context={
-        'posts': posts,
-    }
-    html = render_block_to_string('index.html', 'opinions', context, request)
-    print('loading initial to frontend now')
-    return HttpResponse(html)
-    #return render(request, 'index.html')
+    return render(request, 'index.html')
 
 def load_opinions(request):
     posts = Post.objects.filter(sup_post=None).order_by('-pub_date')
