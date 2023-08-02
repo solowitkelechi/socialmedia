@@ -8,7 +8,11 @@ import time
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    posts = Post.objects.filter(sup_post=None).order_by('-pub_date')
+    context={
+        'posts': posts,
+    }
+    return render(request, 'index.html', context)
 
 def load_opinions(request):
     print("loading data...")

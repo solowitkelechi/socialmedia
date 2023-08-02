@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <button id="nothing"></button>
     <div
-        hx-trigger="load"
+        hx-trigger="click from:#nothing"
         hx-get="{% url 'load_opinions' %}"
         hx-request='\"timeout\":25000'
         hx-swap="outerHTML"
