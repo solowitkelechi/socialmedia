@@ -16,6 +16,7 @@ def load_opinions(request):
         'posts': posts,
     }
     html = render_block_to_string('index.html', 'opinions', context, request)
+    print('loading initial to frontend now')
     return HttpResponse(html)
 
 def get_post(request, post_pk):
@@ -115,12 +116,14 @@ def toggle_sup_post_like(request, post_pk):
     return render(request, 'partials/sup_post_like_area.html', context)
 
 def share_opinion(request):
+    print("posting from index main")
     opinion = request.POST.get('opinion')
     sup_post_id = request.POST.get('sup_post')
     from_sup_post_form = bool(request.POST.get('sup_post_form'))
     from_main_post_form = bool(request.POST.get('main_post_form'))
     from_index = bool(request.POST.get('from_index'))
 
+    print("checking sup_post")
     if sup_post_id is not None:
         sup_post = Post.objects.get(pk=int(sup_post_id))
     user = User.objects.filter(username=request.user.username).first()
@@ -132,22 +135,23 @@ def share_opinion(request):
     post.save()
     posts = Post.objects.all().order_by('-pub_date')
 
-    context={
-        'posts': posts,
-    }
+    context={}
 
+    print("checking from index")
     if from_index:
         print("from index")
         context.update({'post_status': True})
         html = render_block_to_string('index.html', 'status_block', context)
         return HttpResponse(html)
 
+    print("checking from sup_post")
     if from_sup_post_form:
         print("from sup post")
         context.update({'post_status': True})
         html = render_block_to_string('post.html', 'status_block', context)
         return HttpResponse(html)
     
+    print("checking from mainPost")
     if from_main_post_form:
         context = {
             'post_status': True,
@@ -156,7 +160,8 @@ def share_opinion(request):
         html = render_block_to_string('post.html', 'sub_posts_block', context)
         return HttpResponse(html)
     
-    context.update({'main_post_status': True})
+
+    context.update({'main_post_status': True, 'posts': posts})
     html = render_block_to_string('index.html', 'opinions', context)
+    print('sending to frontend now')
     return HttpResponse(html)
-    

@@ -1,17 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <div
-        x-data 
+    <div 
         hx-get="{% url 'load_opinions' %}"
         hx-trigger="load"
         hx-swap="outerHTML"
         hx-indicator="#loading"
         hx-target="#opinion"
+        x-data
     >
-        {% include 'form/postform.html' %}
-
         <div class="flex justify-center p-2 items-center">
             <span
                 class="bg-emerald-500"
@@ -21,17 +18,17 @@
                 loading
             </span>
         </div>
-        
+        {% include 'form/postform.html' %}
+        <div class="flex justify-center">
         {% block opinions %}
-            <div id="opinion"  class="flex justify-center">
-                <template x-teleport="body">
-                    <section id="reply_status">
-                        {% if main_post_status %}
+            <div id="opinion" class="w-full md:w-9/12 lg:w-1/2 flex flex-col divide-y">
+                {% if main_post_status %}
+                    <template x-teleport="body">
+                        <section id="reply_status">
                             {% include 'partials/reply_alert.html' %}
-                        {% endif %}
-                    </section>
-                </template>
-                <div class="w-full md:w-9/12 lg:w-1/2 flex flex-col divide-y">
+                        </section>
+                    </template>
+                {% endif %} 
                 {% for post in posts %}
                     <div class="flex px-2 py-2 gap-x-2 hover:bg-gray-100" x-data="{showCommentModal:false}">
                         <a class="shrink-0" href="{% url 'get_user_profile' post.user.username %}">
@@ -81,7 +78,7 @@
                                 </div>
                             </div>
                             <div>
-                                {% include 'partials/sub_post.html' %}
+                                <!-- {% include 'partials/sub_post.html' %} -->
                             </div>
                         </div>
                     </div> 
@@ -95,10 +92,9 @@
                         {% endblock %}
                     </section>
                 </template>
-                </div>
             </div>
         {% endblock %}
-        
+    </div>
     </div>
     
 {% endblock %}
