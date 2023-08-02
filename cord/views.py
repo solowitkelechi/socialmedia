@@ -11,6 +11,7 @@ def index(request):
     return render(request, 'index.html')
 
 def load_opinions(request):
+    print("loading data...")
     posts = Post.objects.filter(sup_post=None).order_by('-pub_date')
     context={
         'posts': posts,

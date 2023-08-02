@@ -5,6 +5,7 @@
     <div
         hx-trigger="click from:#load"
         hx-get="{% url 'load_opinions' %}"
+        hx-request='\"timeout\":5000'
         hx-swap="outerHTML"
         hx-indicator="#loading"
         hx-target="#opinion"
