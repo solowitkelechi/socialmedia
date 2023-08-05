@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <button id="nothing"></button>
     <div
-        hx-trigger="click from:#nothing"
+        hx-trigger="load"
         hx-get="{% url 'load_opinions' %}"
         hx-request='\"timeout\":25000'
         hx-swap="outerHTML"
@@ -13,7 +12,7 @@
     >
         <div class="flex justify-center p-2 items-center">
             <span
-                class="bg-emerald-500"
+                class="bg-emerald-500 px-2 py-1 text-slate-200 rounded"
                 id="loading"
                 class="htmx-indicator"
             >
