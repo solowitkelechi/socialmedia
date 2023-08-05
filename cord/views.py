@@ -11,11 +11,14 @@ def index(request):
     return render(request, 'index.html')
 
 def load_opinions(request):
-    posts = Post.objects.filter(sup_post=None).order_by('-pub_date')
+    posts = Post.objects.filter(sup_post=None).order_by('-pub_date')[:20]
+    print(posts)
     context={
-        'posts': posts,
+        'posts': posts
     }
-    html = render_block_to_string('index.html', 'opinions', context, request)
+    print('posts in context')
+    html = render_block_to_string('index.html', 'opinions', context)
+    print('in html, send to frontend now!')
     return HttpResponse(html)
 
 def get_post(request, post_pk):
